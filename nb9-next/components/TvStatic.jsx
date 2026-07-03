@@ -1,12 +1,34 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const MAX_WIDTH = 1280;
 const MAX_HEIGHT = 720;
 
 export default function TvStatic({ className = '', opacity = 0.7 }) {
   const canvasRef = useRef(null);
+  // Stay invisible until the sibling image has loaded, so slow connections
+  // don't see bare static before the photo appears.
+  const [imageReady, setImageReady] = useState(false);
+
+  useEffect(() => {
+    const container = canvasRef.current?.parentElement;
+    const img = container?.querySelector('img');
+
+    if (!img || img.complete) {
+      setImageReady(true);
+      return undefined;
+    }
+
+    const onDone = () => setImageReady(true);
+    img.addEventListener('load', onDone);
+    img.addEventListener('error', onDone);
+
+    return () => {
+      img.removeEventListener('load', onDone);
+      img.removeEventListener('error', onDone);
+    };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -94,7 +116,10 @@ export default function TvStatic({ className = '', opacity = 0.7 }) {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      style={{ opacity }}
+      style={{
+        opacity: imageReady ? opacity : 0,
+        transition: 'opacity 400ms ease',
+      }}
       className={`tv-static pointer-events-none absolute inset-0 h-full w-full ${className}`}
     />
   );

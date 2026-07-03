@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o /dev/null -w \"pages.dev: %{http_code}\\\\n\" https://nb9-site.pages.dev/)",
+      "Bash(curl -s https://nb9-site.pages.dev/)"
+    ]
+  }
+}
