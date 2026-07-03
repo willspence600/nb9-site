@@ -5,10 +5,13 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body {
     @apply bg-black text-offwhite antialiased;
+    overflow-x: clip;
+    overscroll-behavior-x: none;
   }
 
   ::selection {

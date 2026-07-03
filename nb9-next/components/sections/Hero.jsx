@@ -4,7 +4,7 @@ import TvStatic from '../TvStatic';
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden border-b-2 border-offwhite px-6 pt-28">
+    <section className="relative flex min-h-svh items-center justify-center overflow-hidden border-b-2 border-offwhite px-6 pt-28">
       <div className="hero-fade absolute inset-0 z-0 isolate" aria-hidden="true">
         <Image
           src={images.hero}
