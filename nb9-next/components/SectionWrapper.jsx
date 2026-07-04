@@ -14,7 +14,15 @@ export default function SectionWrapper({
     >
       {background}
       <div className={`relative z-10 mx-auto max-w-7xl ${contentClassName}`}>
-        <h2 className={`section-heading mb-12 md:mb-16 ${titleClassName}`}>{title}</h2>
+        <h2 className={`section-heading mb-12 md:mb-16 ${titleClassName}`}>
+          {typeof title === 'string' ? (
+            <span className="glitch" data-text={title}>
+              {title}
+            </span>
+          ) : (
+            title
+          )}
+        </h2>
         {children}
       </div>
     </section>

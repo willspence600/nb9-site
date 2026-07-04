@@ -23,7 +23,9 @@ export default function Hero() {
           className="hero-rise text-6xl font-black uppercase leading-none tracking-tighter md:text-9xl"
           style={{ animationDelay: '200ms' }}
         >
-          Naked By 9
+          <span className="glitch" data-text="Naked By 9">
+            Naked By 9
+          </span>
         </h1>
         <p
           className="hero-rise mx-auto mt-8 max-w-xl text-lg text-offwhite/70"

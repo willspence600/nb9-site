@@ -48,7 +48,13 @@ export default function Music() {
             {release.type} · {release.year}
           </p>
           <h3 className="mt-3 text-5xl font-black uppercase leading-none tracking-tighter md:text-7xl xl:text-8xl">
-            {release.title}
+            <span
+              className="glitch"
+              data-text={release.title}
+              style={{ '--glitch-delay': '-1.4s' }}
+            >
+              {release.title}
+            </span>
           </h3>
           <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-offwhite/70 lg:mx-0 md:text-lg">
             Available now on all streaming platforms.

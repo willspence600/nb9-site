@@ -5,7 +5,7 @@ import TvStatic from '../TvStatic';
 import { images } from '../../data/siteConfig';
 
 const videos = [
-  { id: 'xL2k8HnM-bE', title: 'Losing You' },
+  { id: 'xL2k8HnM-bE', title: 'Losing You - Live at Ale House' },
 ];
 
 export default function Videos() {

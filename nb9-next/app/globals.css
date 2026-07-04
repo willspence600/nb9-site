@@ -182,9 +182,43 @@
     animation: hero-rise 700ms ease both;
   }
 
+  /* Glitch headline: red/cyan copies behind the text (chromatic aberration)
+     that jitter and slice in short bursts, with calm stretches between. */
+  .glitch {
+    position: relative;
+    display: inline-block;
+    animation: glitch-slice 3.2s infinite steps(1);
+    animation-delay: var(--glitch-delay, 0s);
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .glitch::before {
+    color: #ff003c;
+    transform: translate(-2px, 0);
+    animation: glitch-red 3.2s infinite steps(1);
+    animation-delay: var(--glitch-delay, 0s);
+  }
+
+  .glitch::after {
+    color: #00fff9;
+    transform: translate(2px, 0);
+    animation: glitch-cyan 3.2s infinite steps(1);
+    animation-delay: var(--glitch-delay, 0s);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-fade,
-    .hero-rise {
+    .hero-rise,
+    .glitch,
+    .glitch::before,
+    .glitch::after {
       animation: none;
     }
   }
@@ -196,6 +230,125 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+/* Bursts live at ~8–16% and ~58–66% of the cycle; the rest is a calm
+   1–2px chromatic offset so the headline stays readable. */
+@keyframes glitch-red {
+  0%,
+  100% {
+    transform: translate(-2px, 0);
+    clip-path: none;
+  }
+  8% {
+    transform: translate(-7px, 2px);
+    clip-path: inset(12% 0 58% 0);
+  }
+  10% {
+    transform: translate(5px, -2px);
+    clip-path: inset(62% 0 8% 0);
+  }
+  12% {
+    transform: translate(-9px, 1px);
+    clip-path: inset(35% 0 40% 0);
+  }
+  14% {
+    transform: translate(4px, -1px);
+    clip-path: inset(5% 0 80% 0);
+  }
+  16% {
+    transform: translate(-2px, 0);
+    clip-path: none;
+  }
+  58% {
+    transform: translate(6px, 1px);
+    clip-path: inset(45% 0 30% 0);
+  }
+  60% {
+    transform: translate(-8px, -2px);
+    clip-path: inset(70% 0 5% 0);
+  }
+  62% {
+    transform: translate(5px, 2px);
+    clip-path: inset(20% 0 60% 0);
+  }
+  64% {
+    transform: translate(-2px, 0);
+    clip-path: none;
+  }
+}
+
+@keyframes glitch-cyan {
+  0%,
+  100% {
+    transform: translate(2px, 0);
+    clip-path: none;
+  }
+  8% {
+    transform: translate(6px, -2px);
+    clip-path: inset(55% 0 20% 0);
+  }
+  10% {
+    transform: translate(-5px, 2px);
+    clip-path: inset(10% 0 65% 0);
+  }
+  12% {
+    transform: translate(8px, -1px);
+    clip-path: inset(48% 0 25% 0);
+  }
+  14% {
+    transform: translate(-4px, 1px);
+    clip-path: inset(75% 0 3% 0);
+  }
+  16% {
+    transform: translate(2px, 0);
+    clip-path: none;
+  }
+  58% {
+    transform: translate(-6px, -1px);
+    clip-path: inset(25% 0 50% 0);
+  }
+  60% {
+    transform: translate(7px, 2px);
+    clip-path: inset(8% 0 72% 0);
+  }
+  62% {
+    transform: translate(-5px, -2px);
+    clip-path: inset(58% 0 15% 0);
+  }
+  64% {
+    transform: translate(2px, 0);
+    clip-path: none;
+  }
+}
+
+/* Brief horizontal tears on the white text itself during the bursts */
+@keyframes glitch-slice {
+  0%,
+  100% {
+    transform: none;
+  }
+  9% {
+    transform: translate(-2px, 0) skewX(-2deg);
+  }
+  11% {
+    transform: translate(3px, 0) skewX(1.5deg);
+  }
+  13% {
+    transform: translate(-1px, 0);
+  }
+  16% {
+    transform: none;
+  }
+  59% {
+    transform: translate(2px, 0) skewX(2deg);
+  }
+  61% {
+    transform: translate(-3px, 0) skewX(-1deg);
+  }
+  64% {
+    transform: none;
   }
 }
 
