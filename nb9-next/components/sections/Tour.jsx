@@ -32,7 +32,7 @@ function ShowRow({ show, isPast = false }) {
           aria-disabled={isPast}
           tabIndex={isPast ? -1 : 0}
         >
-          {isPast ? 'Sold Out' : 'Tickets'}
+          {isPast ? 'Sold Out' : (show.ticketButtonLabel ?? 'Tickets')}
         </a>
       ) : (
         <span className="justify-self-start border-2 border-offwhite px-4 py-2 text-xs font-bold uppercase tracking-widest md:justify-self-end">
@@ -50,7 +50,7 @@ export default function Tour() {
   const [refDate, setRefDate] = useState(null);
   useEffect(() => setRefDate(new Date()), []);
 
-  const { upcoming, past } = sortTourDates(
+  const { upcoming } = sortTourDates(
     tourDates,
     refDate ?? new Date(process.env.NEXT_PUBLIC_BUILD_DATE),
   );
@@ -82,19 +82,6 @@ export default function Tour() {
           <ul>
             {upcoming.map((show) => (
               <ShowRow key={show.id} show={show} />
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {past.length > 0 && (
-        <div className={upcoming.length > 0 ? 'mt-16' : ''}>
-          <h3 className="mb-6 border-t-2 border-offwhite/30 pt-8 text-sm font-bold uppercase tracking-[0.2em] text-offwhite/60">
-            Past Shows
-          </h3>
-          <ul>
-            {past.map((show) => (
-              <ShowRow key={show.id} show={show} isPast />
             ))}
           </ul>
         </div>
